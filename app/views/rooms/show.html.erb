@@ -6,7 +6,23 @@
   <div class='col'>
     <div class='chat'>
       <% @room_messages.each do |msg| %>
-        <%=  msg %>
+        <div class="chat-message-container">
+          <div class="row no-gutters">
+            <div class="col-auto text-center">
+              <img src="<%= gravatar_url(msg.user) %>", class="avatar", alt="">
+            </div>
+            <div class="col">
+              <div class="message-content">
+                  <%= msg.message %>
+                <div class="text-right">
+                  <small>
+                    <%= msg.created_at %>
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       <% end %>
     </div>
 
