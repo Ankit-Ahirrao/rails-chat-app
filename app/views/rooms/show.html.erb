@@ -4,12 +4,12 @@
     <%= render 'rooms' %>
   </div>
   <div class='col'>
-    <div class='chat'>
+    <div class='chat' data-channel-subscribe="room" data-room-id="<%= @room.id %>">
       <% @room_messages.each do |msg| %>
         <div class="chat-message-container">
           <div class="row no-gutters">
             <div class="col-auto text-center">
-              <img src="<%= gravatar_url(msg.user) %>", class="avatar", alt="">
+              <img src="<%= msg.user.gravatar_url %>", class="avatar", alt="">
             </div>
             <div class="col">
               <div class="message-content">
@@ -27,6 +27,7 @@
     </div>
 
     <%= simple_form_for @room_message, remote: true do |f|  %>
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
       <div class='input-group mb-3'>
         <%= f.input :message, as: :string, wrapper: false, label: false, input_html: {class: 'chat-input'} %>
         <div class='input-group-append'>
@@ -35,5 +36,25 @@
       </div>
       <%= f.input :room_id, as: :hidden %>
     <% end %>
+  </div>
+</div>
+
+<div class="d-none" data-role="message-template">
+  <div class="chat-message-container">
+    <div class="row no-gutters">
+      <div class="col-auto text-center">
+        <img src="" class="avatar" alt="" data-role="user-avatar">
+      </div>
+
+      <div class="col">
+        <div class="message-content">
+          <p class="mb-1" data-role="message-text"></p>
+
+          <div class="text-right">
+            <small data-role="message-date"></small>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
